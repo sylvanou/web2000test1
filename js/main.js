@@ -2,6 +2,7 @@ var turn = 0;
 var edges = [];
 var redScore = 0;
 var blueScore = 0;
+var SIDES = 6;
 
 function createTable(side){
   var tbody = document.getElementById("matrix");
@@ -53,13 +54,14 @@ function handleClick(e){
 }
 
 function processEdge(element, dir){
-  createEdge(element, dir);
-  if (turn++ % 2 === 0){
+  if (turn % 2 === 0){
     element.innerHTML += `<div class='${dir}-blue'></div>`;
   }
   else{
     element.innerHTML += `<div class='${dir}-red'></div>`;
   }
+  createEdge(element, dir);
+  turn++;
 }
 
 function createEdge(element, dir){
@@ -98,14 +100,48 @@ function checkUpandDown(){
   }
 }
 function checkLeftandRight(){
-
+  var lastEdge = edges.slice(-1)[0];
+  var topLeft = {r:lastEdge[0].r, c: lastEdge[0].c-1};
+  var topRight = {r:lastEdge[0].r, c: lastEdge[0].c+1};
+  var bottomLeft = {r:lastEdge[1].r, c: lastEdge[1].c-1};
+  var bottomRight = {r:lastEdge[1].r, c: lastEdge[1].c+1};
+  if (findEdge(lastEdge[0], topLeft) &&
+       findEdge(lastEdge[1], bottomLeft) &&
+       findEdge(topLeft, bottomLeft) ){
+    //fill square above
+    updateScores();
+  }
+  if (findEdge(lastEdge[0], topRight) &&
+      findEdge(lastEdge[1], bottomRight) &&
+      findEdge(topRight, bottomRight)){
+    //fill square below
+    updateScores();
+  }
 }
 
 function updateScores(){
-  if (turn % 2 === 0) blueScore++;
+  if (turn-- % 2 === 0) blueScore++;
   else redScore++;
-  console.log("Blue: "+blueScore);
-  console.log("Red: "+redScore);
+  console.log("turn: "+turn);
+  document.getElementById('bluescore').innerHTML = blueScore;
+  document.getElementById('redscore').innerHTML = redScore;
+  if (edges.length === 2*2*SIDES*(SIDES-1)){
+    if (redScore > blueScore) redWins();
+    else if (redScore < blueScore) blueWins();
+    else itsATie();
+  }
+}
+
+function redWins(){
+  alert('red Wins!');
+}
+
+function blueWins(){
+  alert('blue wins!');
+}
+
+function itsATie(){
+  alert("it's a tie!");
 }
 
 function findEdge(orig, dest){
@@ -118,7 +154,7 @@ function findEdge(orig, dest){
 }
 
 window.onload = function(){
-  createTable(6);
+  createTable(SIDES);
   document.querySelectorAll("#matrix td").forEach(function(e,i){
     e.onclick = handleClick;
   });

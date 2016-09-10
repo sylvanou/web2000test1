@@ -2,16 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale: 1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Connect Four</title>
   <link rel="stylesheet" href='css/style.css' />
 </head>
 <body>
+  <div id="overlay"></div>
   <h1>Connect Foe</h1>
   <table>
     <tbody id='matrix'></tbody>
   </table>
+  <h3>Blue Score: <span id='bluescore'>0</span></h3>
+  <h3>Red Score: <span id='redscore'>0</span></h3>
   <script src='js/main.js'></script>
 </body>
 </html>
