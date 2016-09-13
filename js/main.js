@@ -2,7 +2,7 @@ var turn = 0;
 var edges = [];
 var redScore = 0;
 var blueScore = 0;
-var SIDES = 6;
+var SIDES = 8;
 
 function createTable(side){
   var tbody = document.getElementById("matrix");
@@ -86,17 +86,27 @@ function checkUpandDown(){
   var topRight = {r:lastEdge[1].r-1, c: lastEdge[1].c};
   var bottomLeft = {r:lastEdge[0].r+1, c: lastEdge[0].c};
   var bottomRight = {r:lastEdge[1].r+1, c: lastEdge[1].c};
-  if (findEdge(lastEdge[0], topLeft) &&
-       findEdge(lastEdge[1], topRight) &&
-       findEdge(topLeft, topRight) ){
-    //fill square above
-    updateScores();
+  if (topEdgeFound() && bottomEdgeFound()){
+    //fill square above and below
+    updateScores(2);
   }
-  if (findEdge(lastEdge[0], bottomLeft) &&
-      findEdge(lastEdge[1], bottomRight) &&
-      findEdge(bottomLeft, bottomRight)){
+  else if (topEdgeFound()){
+    //fill square above
+    updateScores(1);
+  }
+  else if (bottomEdgeFound()){
     //fill square below
-    updateScores();
+    updateScores(1);
+  }
+  function topEdgeFound(){
+    return findEdge(lastEdge[0], topLeft) &&
+         findEdge(lastEdge[1], topRight) &&
+         findEdge(topLeft, topRight);
+  }
+  function bottomEdgeFound(){
+    return findEdge(lastEdge[0], bottomLeft) &&
+        findEdge(lastEdge[1], bottomRight) &&
+        findEdge(bottomLeft, bottomRight);
   }
 }
 function checkLeftandRight(){
@@ -105,23 +115,33 @@ function checkLeftandRight(){
   var topRight = {r:lastEdge[0].r, c: lastEdge[0].c+1};
   var bottomLeft = {r:lastEdge[1].r, c: lastEdge[1].c-1};
   var bottomRight = {r:lastEdge[1].r, c: lastEdge[1].c+1};
-  if (findEdge(lastEdge[0], topLeft) &&
-       findEdge(lastEdge[1], bottomLeft) &&
-       findEdge(topLeft, bottomLeft) ){
-    //fill square above
-    updateScores();
+  if (leftSideFound() && rightSideFound() ){
+    //fill both squares
+    updateScores(2);
   }
-  if (findEdge(lastEdge[0], topRight) &&
-      findEdge(lastEdge[1], bottomRight) &&
-      findEdge(topRight, bottomRight)){
+  else if (leftSideFound() ){
+    //fill square above
+    updateScores(1);
+  }
+  else if (rightSideFound()){
     //fill square below
-    updateScores();
+    updateScores(1);
+  }
+  function leftSideFound(){
+    return findEdge(lastEdge[0], topLeft) &&
+         findEdge(lastEdge[1], bottomLeft) &&
+         findEdge(topLeft, bottomLeft);
+  }
+  function rightSideFound(){
+    return findEdge(lastEdge[0], topRight) &&
+        findEdge(lastEdge[1], bottomRight) &&
+        findEdge(topRight, bottomRight)
   }
 }
 
-function updateScores(){
-  if (turn-- % 2 === 0) blueScore++;
-  else redScore++;
+function updateScores(inc){
+  if (turn-- % 2 === 0) blueScore+=inc;
+  else redScore+=inc;
   console.log("turn: "+turn);
   document.getElementById('bluescore').innerHTML = blueScore;
   document.getElementById('redscore').innerHTML = redScore;
