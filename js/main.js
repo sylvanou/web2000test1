@@ -4,6 +4,19 @@ var redScore = 0;
 var blueScore = 0;
 var SIDES = 8;
 
+function fadeInDots() {
+  var dots = document.querySelectorAll('.dot');
+  for(let i = 0; i < dots.length; i++) {
+    setTimeout(function() {
+      var scale = .01 + Math.random() * 2;
+      var shiftX = -40 + Math.random() * 80;
+      var shiftY = -40 + Math.random() * 80;
+      dots[i].style.transform = `scale(${scale}) translate(${shiftX}px, ${shiftY}px)`;
+      dots[i].classList.add('appear');
+    }, 100 + Math.random() * 1500);
+  }
+}
+
 function createTable(side){
   var tbody = document.getElementById("matrix");
   tbody.innerHTML = '';
@@ -15,6 +28,7 @@ function createTable(side){
                       </td>`
     }
     tbody.appendChild(tr);
+    fadeInDots();
   }
 }
 
@@ -140,8 +154,20 @@ function checkLeftandRight(){
 }
 
 function updateScores(inc){
-  if (turn-- % 2 === 0) blueScore+=inc;
-  else redScore+=inc;
+  if (turn-- % 2 === 0) {
+    blueScore+=inc;
+    document.querySelector('.bluescore').classList.add('animate');
+    setTimeout(function() {
+      document.querySelector('.bluescore').classList.remove('animate');
+    }, 800);
+  }
+  else {
+    redScore+=inc;
+    document.querySelector('.redscore').classList.add('animate');
+    setTimeout(function() {
+      document.querySelector('.redscore').classList.remove('animate');
+    }, 800);
+  }
   console.log("turn: "+turn);
   document.getElementById('bluescore').innerHTML = blueScore;
   document.getElementById('redscore').innerHTML = redScore;

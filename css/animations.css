@@ -1,0 +1,49 @@
+@keyframes dot-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+@keyframes line-width {
+  from {
+    width: 0;
+  }
+  to {
+    width: 53px;
+  }
+}
+
+@keyframes line-height {
+  from {
+    height: 0;
+  }
+  to {
+    height: 53px;
+  }
+}
+
+@keyframes bluescore {
+  from {
+    color: blue;
+    transform: scale(1.5);
+  }
+  to {
+    transform: scale(1);
+    color: blue;
+  }
+}
+
+@keyframes redscore {
+  from {
+    color: red;
+    transform: scale(1.5);
+  }
+  to {
+    transform: scale(1);
+    color: red;
+  }
+}
