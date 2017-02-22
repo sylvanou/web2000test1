@@ -29,6 +29,15 @@ function createTable(side){
     }
     tbody.appendChild(tr);
     fadeInDots();
+    // then remove animation class from dots
+    setTimeout(function() {
+      var dots = document.querySelectorAll('.dot');
+      for(let i = 0; i < dots.length; i++) {
+        dots[i].style.transform = `none`;
+        dots[i].style.opacity = '1';
+        dots[i].classList.remove('appear');
+      }
+    }, 2400);
   }
 }
 
