@@ -3,15 +3,12 @@ var edges = [];
 var redScore = 0;
 var blueScore = 0;
 var SIDES = 8;
+var newEdge;
 
 function fadeInDots() {
   var dots = document.querySelectorAll('.dot');
   for(let i = 0; i < dots.length; i++) {
     setTimeout(function() {
-      var scale = .01 + Math.random() * 2;
-      var shiftX = -40 + Math.random() * 80;
-      var shiftY = -40 + Math.random() * 80;
-      dots[i].style.transform = `scale(${scale}) translate(${shiftX}px, ${shiftY}px)`;
       dots[i].classList.add('appear');
     }, 100 + Math.random() * 1500);
   }
@@ -33,7 +30,6 @@ function createTable(side){
     setTimeout(function() {
       var dots = document.querySelectorAll('.dot');
       for(let i = 0; i < dots.length; i++) {
-        dots[i].style.transform = `none`;
         dots[i].style.opacity = '1';
         dots[i].classList.remove('appear');
       }
@@ -77,11 +73,20 @@ function handleClick(e){
 }
 
 function processEdge(element, dir){
+  newEdge = document.createElement('div');
+  let edgeAlreadyTaken = Array.from(element.querySelectorAll('div'))
+    .find(el => el.classList.value.split('-')[0] === dir);
   if (turn % 2 === 0){
-    element.innerHTML += `<div class='${dir}-blue'></div>`;
+    // element.innerHTML += `<div class='${dir}-blue'></div>`;
+    if(edgeAlreadyTaken) return turn++;
+    newEdge.classList.add(`${dir}-blue`);
+    element.appendChild(newEdge);
   }
   else{
-    element.innerHTML += `<div class='${dir}-red'></div>`;
+    // element.innerHTML += `<div class='${dir}-red'></div>`;
+    if(edgeAlreadyTaken) return turn++;
+    newEdge.classList.add(`${dir}-red`);
+    element.appendChild(newEdge);
   }
   createEdge(element, dir);
   turn++;
@@ -166,16 +171,16 @@ function updateScores(inc){
   if (turn-- % 2 === 0) {
     blueScore+=inc;
     document.querySelector('.bluescore').classList.add('animate');
-    setTimeout(function() {
-      document.querySelector('.bluescore').classList.remove('animate');
-    }, 800);
+    document.querySelector('.bluescore').addEventListener('animationend', function() {
+        this.classList.remove('animate');
+    });
   }
   else {
     redScore+=inc;
     document.querySelector('.redscore').classList.add('animate');
-    setTimeout(function() {
-      document.querySelector('.redscore').classList.remove('animate');
-    }, 800);
+    document.querySelector('.redscore').addEventListener('animationend', function() {
+        this.classList.remove('animate');
+    });
   }
   console.log("turn: "+turn);
   document.getElementById('bluescore').innerHTML = blueScore;
@@ -187,16 +192,31 @@ function updateScores(inc){
   }
 }
 
+var title = document.querySelector('.title');
+var playAgain = document.querySelector('.play-again');
+
 function redWins(){
-  alert('red Wins!');
+  title.innerHTML = 'Red Wins!';
+  title.style.color = 'red';
+  title.style.fontSize = '3rem';
+  playAgain.style.display = 'block';
 }
 
 function blueWins(){
-  alert('blue wins!');
+  title.innerHTML = 'Blue Wins!';
+  title.style.color = 'blue';
+  title.style.fontSize = '3rem';
+  playAgain.style.display = 'block';
 }
 
 function itsATie(){
-  alert("it's a tie!");
+  title.innerHTML = "It's a Tie!";
+  title.style.fontSize = '3rem';
+  playAgain.style.display = 'block';
+}
+
+function resetGame() {
+  window.location.reload();
 }
 
 function findEdge(orig, dest){
@@ -213,4 +233,6 @@ window.onload = function(){
   document.querySelectorAll("#matrix td").forEach(function(e,i){
     e.onclick = handleClick;
   });
+  document.querySelector('.play-again').addEventListener('click', resetGame);
+  document.querySelector('.reset').addEventListener('click', resetGame);
 }

@@ -6,16 +6,20 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Connect Four</title>
   <link rel="stylesheet" href='css/style.css' />
+  <link rel="stylesheet" href="css/max400.css" media="(max-width: 400px)" />
+  <link rel="stylesheet" href="css/max360.css" media="(max-width: 360px)" />
 </head>
 <body>
   <div id="overlay"></div>
-  <h1>Connect Foe</h1>
+  <h1 class="title">Connect Foe</h1>
+  <button class="play-again">Play Again</button>
   <table>
     <tbody id='matrix'></tbody>
   </table>
   <h3 class="bluescore">Blue Score: <span id='bluescore'>0</span></h3>
   <br>
   <h3 class="redscore">Red Score: <span id='redscore'>0</span></h3>
+  <button class="reset">Reset</button>
   <script src='js/main.js'></script>
 </body>
 </html>

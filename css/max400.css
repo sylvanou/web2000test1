@@ -1,0 +1,33 @@
+@keyframes edge-width {
+  from {
+    width: 0;
+  }
+  to {
+    width: 46px;
+  }
+}
+
+@keyframes edge-height {
+  from {
+    height: 0;
+  }
+  to {
+    height: 46px;
+  }
+}
+
+.dot {
+    width: 13px;
+    height: 13px;
+    margin: 13px;
+}
+
+.left-blue {width: 46px; top: 18px;}
+.left-red {width: 46px; top: 18px;}
+.right-blue {width: 46px; top: 18px;}
+.right-red {width: 46px; top: 18px;}
+
+.up-blue {height: 46px; right: 18px;}
+.up-red {height: 46px; right: 18px;}
+.down-blue {height: 46px; right: 18px;}
+.down-red {height: 46px; right: 18px;}

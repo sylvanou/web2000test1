@@ -14,6 +14,28 @@ body{
   text-align: center;
 }
 
+.title {
+    transition: all .3s;
+}
+
+.play-again {
+    display: none;
+    margin: 0 auto 20px;
+    border: none;
+    padding: 5px 10px;
+    box-shadow: 1px 2px 1px #555;
+    border-radius: 2px;
+}
+
+.reset {
+    display: block;
+    margin: 10px auto 0;
+    border: none;
+    padding: 5px 10px;
+    box-shadow: 1px 2px 1px #555;
+    border-radius: 2px;
+}
+
 div#overlay{
   background-color: rgba(255,255,255,0.50);
   width:100%;
@@ -32,12 +54,13 @@ div#overlay{
   height:15px;
   background-color: #555;
   margin: 15px;
-  transition: all 200ms;
+  transition: all 100ms ease;
 }
 .dot.appear {
   animation-name: dot-appear;
   animation-duration: 900ms;
   animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.56, 0.03, 0.4, 2.17);
 }
 
 table{
@@ -47,6 +70,7 @@ table{
 
 .active div:nth-child(1){
   background-color: rgb(0,177,177);
+  transform: scale(1.4);
 }
 
 td{
@@ -61,7 +85,7 @@ td{
   top: 22.5px;
   right:50%;
   z-index: -2;
-  animation: 200ms ease 0s 1 normal forwards line-width;
+  animation: 200ms ease 0s 1 normal forwards edge-width;
 }
 .right-blue{
   width: 53px;
@@ -71,7 +95,7 @@ td{
   top: 22.5px;
   left:50%;
   z-index: -2;
-  animation: 200ms ease 0s 1 normal forwards line-width;
+  animation: 200ms ease 0s 1 normal forwards edge-width;
 }
 .up-blue{
   width: 4px;
@@ -81,7 +105,7 @@ td{
   bottom: 50%  ;
   right: 22.5px;
   z-index: -2;
-  animation: 200ms ease 0s 1 normal forwards line-height;
+  animation: 200ms ease 0s 1 normal forwards edge-height;
 }
 .down-blue{
   width: 4px;
@@ -91,7 +115,7 @@ td{
   top: 50%  ;
   right: 22.5px;
   z-index: -2;
-  animation: 200ms ease 0s 1 normal forwards line-height;
+  animation: 200ms ease 0s 1 normal forwards edge-height;
 }
 
 .left-red{
@@ -102,7 +126,7 @@ td{
   top: 22.5px;
   right:50%;
   z-index: -2;
-  animation: 200ms ease 0s 1 normal forwards line-width;
+  animation: 200ms ease 0s 1 normal forwards edge-width;
 }
 .right-red{
   width: 53px;
@@ -112,7 +136,7 @@ td{
   top: 22.5px;
   left:50%;
   z-index: -2;
-  animation: 200ms ease 0s 1 normal forwards line-width;
+  animation: 200ms ease 0s 1 normal forwards edge-width;
 }
 .up-red{
   width: 4px;
@@ -122,7 +146,7 @@ td{
   bottom: 50%  ;
   right: 22.5px;
   z-index: -2;
-  animation: 200ms ease 0s 1 normal forwards line-height;
+  animation: 200ms ease 0s 1 normal forwards edge-height;
 }
 .down-red{
   width: 4px;
@@ -132,7 +156,7 @@ td{
   top: 50%  ;
   right: 22.5px;
   z-index: -2;
-  animation: 200ms ease 0s 1 normal forwards line-height;
+  animation: 200ms ease 0s 1 normal forwards edge-height;
 }
 
 h1, h3{
@@ -168,39 +192,4 @@ h1 {
   animation-fill-mode: forwards;
   animation-timing-function: ease-out;
   animation-iteration-count: 1;
-}
-
-@media all and (min-width: 320px) {
-  table {
-    transform: scale(.7);
-    transform-origin: -5% center;
-  }
-
-  h1 {
-    padding-bottom: 0;
-  }
-
-  .bluescore {
-    margin-top: 0;
-  }
-}
-
-@media all and (min-width: 375px) {
-  table {
-    transform: scale(.9) translateX(-3%);
-  }
-}
-
-@media all and (min-width: 400px) {
-  table {
-    transform: scale(1) translateX(0);
-  }
-
-  h1 {
-    padding-bottom: 1.5rem;
-  }
-
-  .bluescore {
-    margin-top: 1.5rem;
-  }
 }
