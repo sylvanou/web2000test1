@@ -1,4 +1,4 @@
-function isLegitEdge(prev, current){
+export const isLegitEdge = (prev, current) =>{
   var thisID = current.id.split("x");
   var thisRow = Number(thisID[1]);
   var thisCol = Number(thisID[2]);
@@ -12,4 +12,3 @@ function isLegitEdge(prev, current){
   return false;
 }
 
-module.exports = isLegitEdge;

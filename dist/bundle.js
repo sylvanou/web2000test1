@@ -1,56 +1,79 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-function createTable(side){
-  var tbody = document.getElementById("matrix");
-  tbody.innerHTML = '';
-  for (var row = 0; row < side; row++){
-    var tr = document.createElement("tr");
-    for (var col = 0; col < side; col++){
-      tr.innerHTML += `<td id='x${row}x${col}'>
-                        <div class='dot'></div>
-                      </td>`
-    }
-    tbody.appendChild(tr);
-    fadeInDots();
-    // then remove animation class from dots
-    setTimeout(function() {
-      var dots = document.querySelectorAll('.dot');
-      for(let i = 0; i < dots.length; i++) {
-        dots[i].style.opacity = '1';
-        dots[i].classList.remove('appear');
-      }
-    }, 2400);
-  }
-}
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function fadeInDots() {
-  var dots = document.querySelectorAll('.dot');
-  for(let i = 0; i < dots.length; i++) {
-    setTimeout(function() {
-      dots[i].classList.add('appear');
-    }, 100 + Math.random() * 1500);
-  }
-}
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createTable__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__isLegitEdge__ = __webpack_require__(2);
 
-module.exports = createTable;
 
-},{}],2:[function(require,module,exports){
-function isLegitEdge(prev, current){
-  var thisID = current.id.split("x");
-  var thisRow = Number(thisID[1]);
-  var thisCol = Number(thisID[2]);
-  var activeID = prev.id.split("x");
-  var activeRow = Number(activeID[1]);
-  var activeCol = Number(activeID[2]);
-  if (thisRow==activeRow && thisCol==activeCol-1) return "right";
-  if (thisRow==activeRow && thisCol==activeCol+1) return "left";
-  if (thisCol==activeCol && thisRow==activeRow-1) return "down";
-  if (thisCol==activeCol && thisRow==activeRow+1) return "up";
-  return false;
-}
 
-module.exports = isLegitEdge;
-
-},{}],3:[function(require,module,exports){
 var turn = 0;
 var edges = [];
 var redScore = 0;
@@ -59,14 +82,10 @@ var SIDES = 8;
 var newEdge;
 
 
-
-var createTable = require('./createTable.js');
-var isLegitEdge = require('./isLegitEdge.js');
-
 function handleClick(e){
   var activeElements = document.querySelectorAll(".active");
   if (activeElements.length > 0){
-    var edge = isLegitEdge(activeElements[0], this);
+    var edge = Object(__WEBPACK_IMPORTED_MODULE_1__isLegitEdge__["a" /* isLegitEdge */])(activeElements[0], this);
     if ( edge ){
         activeElements[0].classList.toggle("active");
         processEdge(this, edge);
@@ -241,7 +260,7 @@ function findEdge(orig, dest){
 }
 
 window.onload = function(){
-  createTable(SIDES);
+  Object(__WEBPACK_IMPORTED_MODULE_0__createTable__["a" /* createTable */])(SIDES);
   document.querySelectorAll("#matrix td").forEach(function(e,i){
     e.onclick = handleClick;
   });
@@ -249,4 +268,72 @@ window.onload = function(){
   document.querySelector('.reset').addEventListener('click', resetGame);
 }
 
-},{"./createTable.js":1,"./isLegitEdge.js":2}]},{},[3]);
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const createTable = (side) => {
+  var tbody = document.getElementById("matrix");
+  tbody.innerHTML = '';
+  for (var row = 0; row < side; row++){
+    var tr = document.createElement("tr");
+    for (var col = 0; col < side; col++){
+      tr.innerHTML += `<td id='x${row}x${col}'>
+                        <div class='dot'></div>
+                      </td>`
+    }
+    tbody.appendChild(tr);
+    fadeInDots();
+    // then remove animation class from dots
+    setTimeout(function() {
+      var dots = document.querySelectorAll('.dot');
+      for(let i = 0; i < dots.length; i++) {
+        dots[i].style.opacity = '1';
+        dots[i].classList.remove('appear');
+      }
+    }, 2400);
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = createTable;
+
+
+const fadeInDots = () => {
+  var dots = document.querySelectorAll('.dot');
+  for(let i = 0; i < dots.length; i++) {
+    setTimeout(function() {
+      dots[i].classList.add('appear');
+    }, 100 + Math.random() * 1500);
+  }
+}
+/* unused harmony export fadeInDots */
+
+
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const isLegitEdge = (prev, current) =>{
+  var thisID = current.id.split("x");
+  var thisRow = Number(thisID[1]);
+  var thisCol = Number(thisID[2]);
+  var activeID = prev.id.split("x");
+  var activeRow = Number(activeID[1]);
+  var activeCol = Number(activeID[2]);
+  if (thisRow==activeRow && thisCol==activeCol-1) return "right";
+  if (thisRow==activeRow && thisCol==activeCol+1) return "left";
+  if (thisCol==activeCol && thisRow==activeRow-1) return "down";
+  if (thisCol==activeCol && thisRow==activeRow+1) return "up";
+  return false;
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = isLegitEdge;
+
+
+
+
+/***/ })
+/******/ ]);

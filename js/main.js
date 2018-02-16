@@ -1,3 +1,6 @@
+import { createTable, fadeInDots } from './createTable';
+import { isLegitEdge } from './isLegitEdge';
+
 var turn = 0;
 var edges = [];
 var redScore = 0;
@@ -5,10 +8,6 @@ var blueScore = 0;
 var SIDES = 8;
 var newEdge;
 
-
-
-var createTable = require('./createTable.js');
-var isLegitEdge = require('./isLegitEdge.js');
 
 function handleClick(e){
   var activeElements = document.querySelectorAll(".active");

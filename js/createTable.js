@@ -1,4 +1,4 @@
-function createTable(side){
+export const createTable = (side) => {
   var tbody = document.getElementById("matrix");
   tbody.innerHTML = '';
   for (var row = 0; row < side; row++){
@@ -21,7 +21,7 @@ function createTable(side){
   }
 }
 
-function fadeInDots() {
+export const fadeInDots = () => {
   var dots = document.querySelectorAll('.dot');
   for(let i = 0; i < dots.length; i++) {
     setTimeout(function() {
@@ -30,4 +30,3 @@ function fadeInDots() {
   }
 }
 
-module.exports = createTable;
